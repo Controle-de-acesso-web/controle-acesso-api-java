@@ -3,7 +3,6 @@
 Sistema completo para registro digital de frequência escolar, composto por:
 
 - **Backend:** API REST em Spring Boot + PostgreSQL
-- **Frontend:** Aplicativo Mobile/Web em React Native + Expo
 
 O objetivo é modernizar o processo de chamada escolar, trazendo rapidez, precisão e melhor acompanhamento das turmas.
 

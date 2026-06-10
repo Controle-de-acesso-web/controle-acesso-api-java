@@ -1,0 +1,95 @@
+### 1) ADMIN - CADASTRAR PROFESSOR (usa Basic Auth)
+
+POST http://localhost:8080/admin/teachers
+Authorization: Basic admin admin123
+Content-Type: application/json
+
+{
+  "name": "marcio",
+  "email": "marcio@gmail.com",
+  "password": "testes",
+  "classId": "C"
+}
+
+###
+
+### 2) ADMIN - CADASTRAR ALUNO (mesma turma A)
+
+POST http://localhost:8080/admin/students
+Authorization: Basic admin admin123
+Content-Type: application/json
+
+{
+  "name": "Mayara",
+  "registration": "222041",
+  "classId": "C"
+}
+
+###
+
+### 3) PROFESSOR - LOGIN (usa os dados criados no passo 1)
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao@escola.com",
+  "password": "123456"
+}
+
+###
+
+### 4) PROFESSOR - LISTAR ALUNOS DA TURMA
+
+GET http://localhost:8080/teacher/students?classId=A
+Accept: application/json
+
+###
+
+### 5) PROFESSOR - BUSCAR PRESENÇAS DO DIA
+
+# Ajuste a data se quiser testar outro dia
+GET http://localhost:8080/teacher/attendance?classId=A&date=2025-11-13
+Accept: application/json
+
+###
+
+### 6) PROFESSOR - SALVAR PRESENÇAS DO DIA
+# IMPORTANTE:
+# - Rode primeiro o passo 4, pegue o "id" do(s) aluno(s) retornado(s)
+# - Substitua os valores de "studentId" abaixo pelos IDs reais
+
+PUT http://localhost:8080/teacher/attendance
+Content-Type: application/json
+
+### 7) PROFESSOR - SALVAR PRESENÇAS DO DIA (turma A)
+
+PUT http://localhost:8080/teacher/attendance
+Content-Type: application/json
+
+{
+  "classId": "A",
+  "date": "2025-11-13",
+  "items": [
+    {
+      "studentId": "fbee2268-a6e8-47be-a829-877b472e104f",
+      "status": "P"
+    },
+    {
+      "studentId": "1508d881-9cca-4237-bf25-14fccfe83e52",
+      "status": "F"
+    },
+    {
+      "studentId": "e0630fe2-d475-4ed7-a557-bcf0bb3d764c",
+      "status": "T"
+    }
+  ]
+}
+
+
+###
+
+### 7) PROFESSOR - CONFERIR SE AS PRESENÇAS FORAM SALVAS
+
+GET http://localhost:8080/teacher/attendance?classId=A&date=2025-11-13
+Accept: application/json
